@@ -65,7 +65,7 @@ printf "other offsets = %f\n", $other_offsets;
 #       |_   /  /_____________\_____\______________________   _|           _
 #   notch -> \_/               \     \                     |                |
 #                               \  O  \                    |  <- main beam  | 5"
-#             ___________________\____ \___________________|               _|
+#             ___________________\_____\___________________|               _|
 #
 #                |------------|    |-----------------------|
 #                $other_offsets               26"
@@ -181,9 +181,15 @@ printf "rear support height = %.4fin\n", $rear_support_height;
 #
 #       |--------|
 #           5"
+#
+# There's actually some minor inaccuracy here because the diagonal along the 4"
+# segment ends up being slightly longer than 4". Because of this, I'm going to
+# round the 3.21" up to 3.22" (= 3 + 7/32).
 
-my $rear_support_wedge_height = $beam_thickness / cos deg2rad $seat_angle;
-my $rear_support_total_height = $rear_support_height + $rear_support_wedge_height;
+my $rounded_rear_support_height = 3.22;
+my $rear_support_wedge_height = $beam_thickness * cos deg2rad $seat_angle;
+my $rear_support_total_height = $rounded_rear_support_height
+                              + $rear_support_wedge_height;
 
 printf "rear support wedge height = %.4fin, total = %.4fin\n",
        $rear_support_wedge_height, $rear_support_total_height;
